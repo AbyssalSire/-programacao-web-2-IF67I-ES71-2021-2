@@ -1,2 +1,9 @@
-// Criar uma página de configuração que permite o usuário modificar o nome
-// exibido nas páginas
+extends layout
+
+block content
+  h1 Configurações
+  form(action='/settings/editarNome', method='POST')
+    p
+      | Alterar nome: 
+      input(type='text', name='nomeNovo', value='')
+      input(type='submit', value='Alterar')

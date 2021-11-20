@@ -1,5 +1,0 @@
-Para utilização do docker:
-docker build -t programacao-web-2-if67i-es71-2021-2 .
-docker run -dp 3000:3000 programacao-web-2-if67i-es71-2021-2
-docker tag programacao-web-2-if67i-es71-2021-2 lucasmalheiros/programacao-web-2-if67i-es71-2021-2
-docker push lucasmalheiros/programacao-web-2-if67i-es71-2021-2

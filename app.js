@@ -3,14 +3,13 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const dotenv = require('dotenv');
+dotenv.config();
 
 var usersRouter = require('./routes/users');
 var aboutRouter = require('./routes/about');
 var contatRouter = require('./routes/contact');
 var devRouter = require('./routes/dev');
-// footer e header lidado pela template engine
-// var footerRouter = requite('./routes/footer');
-// var headerRouter = require('./routes/header');
 var indexRouter = require('./routes/index');
 var authRouter = require('./routes/auth');
 var settingsRouter = require('./routes/settings');
@@ -20,7 +19,7 @@ var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+app.set('view engine', 'pug');
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -28,13 +27,13 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/users', usersRouter);
+//app.use('/users', usersRouter);
 app.use('/about', aboutRouter);
-app.use('/contact', contatRouter);
-app.use('/dev', devRouter);
-app.use('/auth', authRouter);
+//app.use('/contact', contatRouter);
+//app.use('/dev', devRouter);
+//app.use('/auth', authRouter);
 app.use('/', indexRouter);
-app.use('/settings', settingsRouter);
+//app.use('/settings', settingsRouter);
 app.use('/technologies', technologiesRouter);
 
 // catch 404 and forward to error handler
@@ -52,5 +51,12 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+
+// Utilizado para confirmar servidor online quando utilizando nodemon
+// app.listen(3000, function() {
+//   console.log("Servidor online");
+// });
+
 
 module.exports = app;

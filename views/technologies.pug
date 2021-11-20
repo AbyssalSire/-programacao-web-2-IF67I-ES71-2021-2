@@ -1,0 +1,8 @@
+extends layout
+
+block content
+  h1 Lista de Tecnologias
+  p Tecnologias utilizadas para o desenvolvimento desta atividade 
+  ul
+    each val in ['Framework: Express', 'Gerador de programa: Express Generator','Template engine: Pug','Cookie Parser','Leitura .env: Dotenv','']
+      li= val

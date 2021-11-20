@@ -5,6 +5,9 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+# Binary files
+bin/
+
 # Runtime data
 pids
 *.pid
@@ -60,5 +63,7 @@ typings/
 # next.js build output
 .next
 
-# arquivo para lembrete pessoal
-lembrete-utilizacao-docker.txt
+# arquivos txt
+.txt
+
+#package locks

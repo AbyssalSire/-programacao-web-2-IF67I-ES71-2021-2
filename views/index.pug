@@ -2,7 +2,7 @@ extends layout
 
 block content
   h1= title
-  p Bem vindo ao site pessoal desenvolvido para a disciplina de #{title}
+  p Bem vindo ao site pessoal desenvolvido para a disciplina de #{subject}
   br
   a(href='/about') Sobre o site
   br
@@ -19,3 +19,15 @@ block content
   a(href='/settings') Configurações do site
   br
   br
+  a(href='/contact') Entrar em contato com o desenvolvedor
+  br
+  br
+  form(action='/login', method='POST')
+    p
+      | Usuário:
+      input(type='text', name='userName', value='')
+    p
+        | Senha: 
+        input(type='password', name='password', value='')
+    input(type='submit', value='Login')
+

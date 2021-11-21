@@ -25,7 +25,7 @@ app.set('view engine', 'pug');
 
 app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -61,10 +61,10 @@ app.use(function (err, req, res, next) {
 
 
 // Utilizado para confirmar servidor online quando utilizando nodemon
-// app.listen(3000, function() {
-//   console.log("Servidor online");
-//   console.log(process.env.LOGGEDIN)
-// });
+app.listen(3000, function() {
+  console.log("Servidor online");
+  console.log(process.env.LOGGEDIN)
+});
 
 
 module.exports = app;

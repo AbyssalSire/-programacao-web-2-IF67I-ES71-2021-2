@@ -1,5 +1,9 @@
 header
-p Nome: #{process.env.NOME}
+a(target="_self", href='/') 
+    img(width="100", height="100", src='images/perfil.jpg')
+    |  
+p Usuário: #{process.env.NOME}
 a(href='/login') Login
 br
 a(href='/logout') Sair
+br

@@ -60,10 +60,10 @@ app.use(function(err, req, res, next) {
 
 
 // Utilizado para confirmar servidor online quando utilizando nodemon
-app.listen(3000, function() {
-  console.log("Servidor online");
-  console.log(process.env.LOGGEDIN)
-});
+// app.listen(3000, function() {
+//   console.log("Servidor online");
+//   console.log(process.env.LOGGEDIN)
+// });
 
 
 module.exports = app;

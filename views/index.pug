@@ -22,12 +22,13 @@ block content
   a(href='/contact') Entrar em contato com o desenvolvedor
   br
   br
-  form(action='/login', method='POST')
-    p
-      | Usuário:
-      input(type='text', name='userName', value='')
-    p
-        | Senha: 
-        input(type='password', name='password', value='')
-    input(type='submit', value='Login')
+  if process.env.LOGGEDIN == 'false'
+    form(action='/login', method='POST')
+      p
+        | Usuário:
+        input(type='text', name='userName', value='')
+      p
+          | Senha: 
+          input(type='password', name='password', value='')
+      input(type='submit', value='Login')
 

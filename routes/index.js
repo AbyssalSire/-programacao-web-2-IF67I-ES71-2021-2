@@ -6,10 +6,13 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Sistema de páginas de Web 2', subject: 'Programação Web 2'});
 });
 
-router.get('/login', function(req, res, next){
-  console.log("Before",process.env.LOGGEDIN);
-  process.env.LOGGEDIN=true;
-  console.log("After",process.env.LOGGEDIN);
+router.post('/login', function(req, res, next){
+  if(req.body.userName=='' && req.body.password ==''){
+    return
+  }
+  if(req.body.userName===process.env.LOGIN_USER && req.body.password===process.env.LOGIN_PASSWORD){
+    process.env.LOGGEDIN=true;
+  }
   res.redirect('/')
 });
 router.get('/logout', function(req, res, next){

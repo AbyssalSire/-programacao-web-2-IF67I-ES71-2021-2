@@ -33,11 +33,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-//app.use('/users', usersRouter);
 app.use('/about', aboutRouter);
 app.use('/contact', contactRouter);
 app.use('/dev', devRouter);
-//app.use('/auth', authRouter);
 app.use('/', indexRouter);
 app.use('/settings', settingsRouter);
 app.use('/technologies', technologiesRouter);

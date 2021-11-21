@@ -1,3 +1,19 @@
-// Criar uma página de contato, no qual será possível enviar uma mensagem (por
-// email) para os desenvolvedores da ferramenta. Os campos obrigatórios são
-// nome, e-mail, assunto e mensagem
+extends layout
+
+block content
+  h1 Enviar email
+  form(action='/contact/enviarEmail', method='POST')
+    p
+        | Nome: 
+        input(type='text', name='nome', value='', required=isRequired)
+    p
+        | Email: 
+        input(type='email', name='emailEnvio', value='', required=isRequired)
+    p
+        | Assunto: 
+        input(type='text', name='assuntoEmail', value='', required=isRequired)
+    p
+        | Mensagem: 
+        input(type='text', name='textoEmail', value='', required=isRequired)
+    
+    input(type='submit', value='Enviar')

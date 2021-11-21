@@ -2,6 +2,8 @@
 
 ### Autor: Lucas Malheiros r.a. 1835793
 
+Usuário para login: admin
+senha para login: senha
 
 ## Proposta Atividade Ciclo 1
 >Neste primeiro ciclo, cada projeto deverá atender aos seguintes requisitos e realizar as

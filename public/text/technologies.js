@@ -4,9 +4,9 @@ module.exports = {
         1: 'Framework: Express',
         2: 'Gerador de programa: Express Generator',
         3: 'Template engine: Pug',
-        4: 'Cookie Parse',
+        4: 'Cookie Parser',
         5: 'Leitura .env: Dotenv',
         6: 'NodeMailer para envio de emails',
-
-},
+        //7: 'Express-Session',
+    },
 }

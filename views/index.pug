@@ -11,12 +11,10 @@ block content
   br
   br
   a(href='/dev') Sobre o desenvolvedor
-  br
-  br
-  a(href='/contact') Contato
-  br
-  br
-  a(href='/settings') Configurações do site
+  if process.env.LOGGEDIN == 'true'
+    br
+    br
+    a(href='/settings') Configurações do site
   br
   br
   a(href='/contact') Entrar em contato com o desenvolvedor

@@ -1,5 +1,6 @@
 var createError = require('http-errors');
 var express = require('express');
+const session = require('express-session');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
@@ -26,8 +27,9 @@ app.set('view engine', 'pug');
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser());
+app.use(cookieParser('secret'));
 app.use(express.static(path.join(__dirname, 'public')));
+//app.use(session({ cookie: { maxAge: null } }));
 
 //Here we are configuring express to use body-parser as middle-ware.
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -42,26 +44,26 @@ app.use('/technologies', technologiesRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
-  next(createError(404));
+    next(createError(404));
 });
 
 // error handler
 app.use(function (err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+    // set locals, only providing error in development
+    res.locals.message = err.message;
+    res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
-  res.status(err.status || 500);
-  
-  res.render('error');
+    // render the error page
+    res.status(err.status || 500);
+
+    res.render('error');
 });
 
 
 // Utilizado para confirmar servidor online quando utilizando nodemon
-// app.listen(3000, function() {
-//   console.log("Servidor online");
-//   console.log(process.env.LOGGEDIN)
+// app.listen(3000, function () {
+//     console.log("Servidor online");
+//     console.log(process.env.LOGGEDIN)
 // });
 
 

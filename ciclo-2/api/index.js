@@ -1,6 +1,7 @@
 // configuração
 const express = require('express');
 const mongoose = require('mongoose');
+var cors = require('cors')
 const app = express();
 require("dotenv").config({ path: "./.env" })
 
@@ -15,6 +16,7 @@ app.use(
     })
 )
 app.use(express.json())
+app.use(cors())
 
 
 //rotas da API

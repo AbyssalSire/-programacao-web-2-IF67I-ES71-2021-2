@@ -1,6 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
-import React from "react";
+import React, { Component } from "react";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { Provider } from "react-redux";
 import { store, persistor } from '../src/store'
@@ -15,10 +15,12 @@ import ListaPessoas from './view/ListaPessoas'
 import ListaDisciplinas from './view/ListaDisciplinas'
 import CadastroPessoa from './view/CadastroPessoa'
 import CadastroDisciplina from './view/CadastroDisciplina'
+import { render } from '@testing-library/react';
 
 
-function App() {
-    return (
+class App extends Component {    
+    render(){
+        return (
         <Provider store={store}>
             <PersistGate loading={null} persistor={persistor}>
                     <Router> 
@@ -31,7 +33,7 @@ function App() {
                     </Router>
             </PersistGate>
         </Provider>
-    );
+    );}
 }
 
 

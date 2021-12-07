@@ -2,8 +2,20 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import './navbar.css'
+import api from '../../api'
+
 
 function NavBar() {
+    //teste funcao async
+    // async function teste(){
+    //     var resposta = []
+    //     resposta = await api.get('')
+    //     // .then(this.setState({resultado: resposta}))
+    //     // resposta.then(console.log(resposta))
+    //     // this.setState({resultado: resposta})
+    //     console.log(resposta.data.message)
+    // }
+
     const dispatch = useDispatch();
     function contato(){
         alert('Para entrar em contato com o criador: lucmalheiros@gmail.com');
@@ -22,17 +34,20 @@ function NavBar() {
                                             <Link to="cadastroDisciplina" className="nav-link active">Cadastrar Disciplina</Link>
                                         </li>
                                         <li className="nav-item">
-                                            <Link to="cadastcadastroPessoa" className="nav-link active">Cadastrar aluno</Link>
+                                            <Link to="cadastroPessoa" className="nav-link active">Cadastrar aluno</Link>
                                         </li>
                                         <li className="nav-item">
                                             <Link to="listaDisciplinas" className="nav-link active">Lista de Disciplinas</Link>
                                         </li>
                                         <li className="nav-item">
-                                            <Link to="listaOEssiaso" className="nav-link active">Lista de Pessoas</Link>
+                                            <Link to="ListaPessoas" className="nav-link active">Lista de Pessoas</Link>
                                         </li>
                                         <li className="nav-item">
                                             <Link onClick={() => dispatch({ type: "LOGOUT" })} className="nav-link active">Sair</Link>
                                         </li>
+                                        {/* <li className="nav-item">
+                                            <Link onClick={teste} className="nav-link active">teste</Link>
+                                        </li> */}
                                     </>
                                     :
                                     <>

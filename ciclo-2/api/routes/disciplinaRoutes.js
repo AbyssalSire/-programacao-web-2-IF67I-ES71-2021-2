@@ -1,5 +1,6 @@
 var express = require('express');
 const Disciplina = require('../models/Disciplina');
+const Pessoa = require('../models/Pessoa');
 var router = express.Router();
 
 const disciplinaDAO = require('../models/Disciplina')
@@ -18,6 +19,12 @@ router.post('/criar', async (req, res) => {
     }
 
     try {
+        const pesquisa = await Pessoa.findOne({ra: alunoRA})
+        if(!pesquisa){
+            res.status(422).json({message: 'Aluno não encontrado'})
+            return
+        }
+
         //criando dados
         await Disciplina.create(disciplina)
         res.status(201).json({message: 'Disciplina inserida no sistema com sucesso'})
@@ -40,14 +47,14 @@ router.get('/listar', async (req, res) => {
 router.get('/pesquisar/nome/:nome', async (req, res) => {
     // req.params = parametros pela url
     const query = req.params.nome
-    console.log("aqui");
-
     try {
         const disciplina = await Disciplina.find({nomeDisciplina: query})
-        if(!disciplina){
-            res.status(422).json({message: 'A disciplina foi encontrada, talvez troque as letras maiúsculas'})
+        console.log(disciplina);
+        if(disciplina.length==0){
+            res.status(422).json({message: 'A disciplina não foi encontrada, talvez troque as letras maiúsculas'})
             return
         }
+        console.log("aqui");
         
         res.status(200).json(disciplina)
     } catch (error) {
@@ -61,7 +68,7 @@ router.get('/pesquisar/codigo/:codigo', async (req, res) => {
 
     try {
         const disciplina = await Disciplina.find({codigo: query})
-        if(!disciplina){
+        if(disciplina.length==0){
             res.status(422).json({message: 'Código de disciplina não encontrado, tente trocar as letras maiúsculas'})
             return
         }

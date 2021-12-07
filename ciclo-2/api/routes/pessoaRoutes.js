@@ -19,6 +19,11 @@ router.post('/criar', async (req, res) => {
     }
 
     try {
+        const pesquisa = await Pessoa.findOne({ra: ra})
+        if(pesquisa){
+            res.status(422).json({message: 'Aluno já existe'})
+            return
+        }
         //criando dados
         await Pessoa.create(pessoa)
         res.status(201).json({message: 'Pessoa inserida no sistema com sucesso'})
@@ -26,6 +31,33 @@ router.post('/criar', async (req, res) => {
         res.status(500).json({error: error})
         
     }
+})
+
+router.post('/logar', async (req, res)=>{
+    const query1 = req.body.ra
+    const query2 = req.body.senha
+
+    if(!req.body.ra||!req.body.senha){
+        res.status(422).json({error: 'Todas as informaçõe são obrigatórias'})
+        return
+    }
+
+    try {
+        const pesquisa = await Pessoa.findOne({ra: query1})
+        if(!pesquisa){
+            res.status(422).json({message: 'Ra não encontrado'})
+            return
+        }
+        const pesquisa2 = await Pessoa.findOne({ra: query1, senha: query2})
+        if(!pesquisa2){
+            res.status(422).json({message: 'RA ou senha incorretos'})
+            return
+        }
+        res.status(200).json({message: 'Login realizado com sucesso'})
+    } catch (error) {
+        res.status(500).json({error: error})
+        
+    } 
 })
 
 router.get('/listar', async (req, res) => {
@@ -61,7 +93,7 @@ router.get('/pesquisar/curso/:curso', async (req, res) => {
 
     try {
         const pessoa = await Pessoa.find({curso: query})
-        if(!pessoa){
+        if(pessoa.length==0){
             res.status(422).json({message: 'Membros do curso não encontrados, tente trocar as letras maiúsculas'})
             return
         }
@@ -134,6 +166,8 @@ router.delete('/deletar/:ra', async (req, res)=> {
         res.status(500).json({error: error})
     }
 })
+
+
 
 
 module.exports = router;

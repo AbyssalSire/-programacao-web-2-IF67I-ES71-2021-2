@@ -33,6 +33,6 @@ app.get('/',(req, res) => {
 mongoose.connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@ciclo-2.kmjl5.mongodb.net/bancoWeb2?retryWrites=true&w=majority`)
     .then(()=>{
         console.log("Conectado ao MongoDB");
-        app.listen(3000);
+        app.listen(5000);
     })
     .catch((err) => console.log(err))

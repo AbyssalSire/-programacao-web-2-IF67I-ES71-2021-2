@@ -1,14 +1,15 @@
-import React, { Component } from 'react';
-import './home.css'
+import './buscar.css'
 import { Link } from 'react-router-dom';
 import NavBar from '../../components/navbar';
 import api from '../../api'
 import { useSelector, useDispatch } from 'react-redux';
+import React, { useEffect, useState, Component } from 'react';
+// import RoundRadioButton from '../../components/RoundRadioButton/RoundRadioButton';
 
-class Home extends Component {
+class Buscar extends Component {
 
 
-    teste = async () => {
+    buscar = async () => {
         var resposta = []
         resposta = await api.get('pessoa/listar')
         // .then(this.setState({resultado: resposta}))
@@ -30,19 +31,8 @@ class Home extends Component {
                     <br />
                     <div className="home-content-div container-texto">
                         <p className="text-left">Objetivo do site: Fazer cadastro de alunos e alunos em disciplinas, onde múltiplos alunos podem fazer a mesma disciplina, assim como o mesmo aluno pode estar em diversas disciplinas.
-                        <br/>
-                        Forma de utilização: Cadastro de novo usuário na aba Cadastrar, seguido de login e possível cadastro de aluno em disciplina (necessário que o aluno exista)
-                        <br/>
-                        Cadastro de alunos(aba cadastrar) novos liberado para todos, Cadastro de Alunos em Disciplinas (na aba Disciplinas) só pode ser feito por usuário autenticados
-                        <br/>
-                        É necessário logar com RA de aluno
                         </p>
                     </div>
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-
                     <div className="home-content-div container-texto">
                         <p className="text-right">Lista de tecnologias
                         </p>
@@ -59,7 +49,6 @@ class Home extends Component {
                             <li>Redux-persist</li>
                             <li>Web Vitals</li>
                             <li>Bootstrap</li>
-                            <li>Axios</li>
                         </ul>
                     </div>
                     <br />
@@ -87,4 +76,4 @@ class Home extends Component {
     }
 
 }
-export default Home;
+export default Buscar;

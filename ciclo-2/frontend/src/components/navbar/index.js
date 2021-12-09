@@ -6,20 +6,13 @@ import api from '../../api'
 
 
 function NavBar() {
-    //teste funcao async
-    // async function teste(){
-    //     var resposta = []
-    //     resposta = await api.get('')
-    //     // .then(this.setState({resultado: resposta}))
-    //     // resposta.then(console.log(resposta))
-    //     // this.setState({resultado: resposta})
-    //     console.log(resposta.data.message)
-    // }
 
     const dispatch = useDispatch();
     function contato(){
         alert('Para entrar em contato com o criador: lucmalheiros@gmail.com');
+        window.location.href="http://localhost:3000/"
     };
+
     return (
         <header>
             <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -43,7 +36,10 @@ function NavBar() {
                                             <Link to="ListaPessoas" className="nav-link active">Lista de Pessoas</Link>
                                         </li>
                                         <li className="nav-item">
-                                            <Link onClick={() => dispatch({ type: "LOGOUT" })} className="nav-link active">Sair</Link>
+                                            <Link to="Buscar" className="nav-link active">Buscar</Link>
+                                        </li>
+                                        <li className="nav-item">
+                                            <Link onClick={() => {dispatch({ type: "LOGOUT" });window.location.href="http://localhost:3000/"}} className="nav-link active">Sair</Link>
                                         </li>
                                         {/* <li className="nav-item">
                                             <Link onClick={teste} className="nav-link active">teste</Link>
@@ -53,6 +49,15 @@ function NavBar() {
                                     <>
                                         <li className="nav-item">
                                             <Link onClick={contato} id="contato" className="nav-link active">Contato</Link>
+                                        </li>
+                                        <li className="nav-item">
+                                            <Link to="listaDisciplinas" className="nav-link active">Lista de Disciplinas</Link>
+                                        </li>
+                                        <li className="nav-item">
+                                            <Link to="ListaPessoas" className="nav-link active">Lista de Pessoas</Link>
+                                        </li>
+                                        <li className="nav-item">
+                                            <Link to="Buscar" className="nav-link active">Buscar</Link>
                                         </li>
                                         <li className="nav-item">
                                             <Link to="login" className="nav-link active">Login</Link>

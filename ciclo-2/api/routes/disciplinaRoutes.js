@@ -7,23 +7,22 @@ const disciplinaDAO = require('../models/Disciplina')
 
 router.post('/criar', async (req, res) => {
     const {nomeDisciplina, alunoRA, codigo} = req.body
-
+    
     if(!nomeDisciplina||!alunoRA||!codigo){
-        res.status(422).json({error: 'Todas as informaçõe são obrigatórias'})
+        res.status(422).json({error: 'Todas as informações são obrigatórias'})
+        return
     }
-
-    const disciplina = {
-        nomeDisciplina,
-        alunoRA,
-        codigo
-    }
-
     try {
-        const pesquisa = await Pessoa.findOne({ra: alunoRA})
-        if(!pesquisa){
-            res.status(422).json({message: 'Aluno não encontrado'})
-            return
+        const disciplina = {
+            nomeDisciplina,
+            alunoRA,
+            codigo
         }
+    const pesquisa = await Pessoa.findOne({ra: alunoRA})
+    if(!pesquisa){
+        res.status(422).json({message: 'Aluno não encontrado'})
+        return
+    }
 
         //criando dados
         await Disciplina.create(disciplina)

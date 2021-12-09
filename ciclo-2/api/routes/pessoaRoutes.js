@@ -38,7 +38,7 @@ router.post('/logar', async (req, res)=>{
     const query2 = req.body.senha
 
     if(!req.body.ra||!req.body.senha){
-        res.status(422).json({error: 'Todas as informaçõe são obrigatórias'})
+        res.status(422).json({error: 'Todas as informações são obrigatórias'})
         return
     }
 

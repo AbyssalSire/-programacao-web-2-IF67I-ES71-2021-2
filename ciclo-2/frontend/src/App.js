@@ -15,6 +15,7 @@ import ListaPessoas from './view/ListaPessoas'
 import ListaDisciplinas from './view/ListaDisciplinas'
 import CadastroPessoa from './view/CadastroPessoa'
 import CadastroDisciplina from './view/CadastroDisciplina'
+import Buscar from './view/Buscar'
 import { render } from '@testing-library/react';
 
 
@@ -30,6 +31,7 @@ class App extends Component {
                             <Route exact path='/listaDisciplinas' component={ListaDisciplinas}></Route>
                             <Route exact path='/cadastroPessoa' component={CadastroPessoa}></Route>
                             <Route exact path='/cadastroDisciplina' component={CadastroDisciplina}></Route>
+                            <Route exact path='/buscar' component={Buscar}></Route>
                     </Router>
             </PersistGate>
         </Provider>

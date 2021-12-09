@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-//import 'firebase/auth';
 import NavBar from '../../components/navbar';
-//import firebase from '../../config/firebase';
 import './login.css';
+import axios from 'axios';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
@@ -11,25 +10,30 @@ function Login() {
 
     const [email, setEmail] = useState();
     const [senha, setSenha] = useState();
-    const [msgTipo, setMsgTipo] = useState();
     const dispatch = useDispatch();
     const [carregando, setCarregando] = useState(0);
 
-/*
-    function autenticar() {
-        setCarregando(1);
-        firebase.auth().signInWithEmailAndPassword(email, senha).then(resultado => {
-            setMsgTipo('ok');
-            setCarregando(0);
-            setTimeout(() => {
-                dispatch({ type: "LOGIN", usuarioEmail: email })
-            }, 10);
 
-        }).catch(erro => {
-            setMsgTipo('erro');
+    async function login(){
+        var inputRA;
+        var inputPassword;
+        inputRA = document.getElementById('inputRA').value 
+        inputPassword =  document.getElementById('inputPassword').value
+        var resposta = []
+        axios({
+            method: 'post',
+            url: 'http://localhost:5000/pessoa/logar',
+            headers: {},
+                data: {
+                    ra: inputRA,
+                    senha: inputPassword
+             }
+        }).then(() => dispatch({ type: "LOGIN" } )).catch(erro => {
+            console.log(JSON.stringify(erro.response.data.error));
+            alert(JSON.stringify(erro.response.data.error))
         })
-    }*/
-
+        return JSON.stringify(resposta)
+    }
 
 
     return (
@@ -43,24 +47,23 @@ function Login() {
                     <h1 className="d-flex justify-content-center  mb-3">Login</h1>
                     <div className="form-group row d-flex justify-content-center">
                         <div className="col-xs-4  mb-3">
-                            <label>Email</label>
-                            <input onChange={(e) => setEmail(e.target.value)} type="email" className="form-control mx-auto" placeholder="Email institucional" id="inputEmail" />
+                            <label>R.A. (Apenas os números)</label>
+                            <input onChange={(e) => setEmail(e.target.value)} type="email" className="form-control mx-auto" placeholder="Sem a letra 'a'" id="inputRA" />
                         </div>
                     </div>
                     <div className="form-group row d-flex justify-content-center">
                         <div className="col-xs-4 mb-3">
-                            <label>Password</label>
+                            <label>Senha</label>
                             <input onChange={(e) => setSenha(e.target.value)} type="password" className="form-control mx-auto" placeholder="Coloque sua senha" id="inputPassword" />
                         </div>
                     </div>
                     <div className="text-center mb-3">
                         {
                             carregando ? <div className="spinner-border text-secondary" role="status"><span className="sr-only"></span></div>
-                                : <button className="btn btn-login" type="button" onClick={() => dispatch({ type: "LOGIN" })}
+                                : <button className="btn btn-login" type="button" onClick={login}
                                    >Entrar</button>
                         }
                     </div>
-                    {msgTipo === 'erro' && <span>Erro ao logar</span>}
                 </div>
             </form>
         </body>

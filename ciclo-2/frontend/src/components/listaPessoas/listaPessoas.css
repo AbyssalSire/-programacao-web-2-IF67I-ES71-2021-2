@@ -1,0 +1,13 @@
+.cartao {
+  max-height: 250px;
+  padding: 20px;
+  padding-top: 30px;
+  margin: 10px;
+  width: 31%;
+  overflow: auto;
+}
+
+.conteudo-agendamento {
+  text-align: left;
+  margin-top: 15px;
+}

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import NavBar from '../../components/navbar';
 import axios from 'axios';
+import './cadastroDisciplina.css'
 
 import { Redirect } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';

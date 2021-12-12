@@ -6,6 +6,14 @@ function ListaDisciplinas({
   alunoRA,
   codigo,
 }) {
+  function editar(){
+    alert('Função de editar implementada no back-end, infelizmente não foi implementada no front');
+    window.location.href="http://localhost:3000/ListaPessoas"
+};
+  function excluir(){
+    alert('Função de excluir implementada no back-end, infelizmente não foi implementada no front');
+    window.location.href="http://localhost:3000/ListaPessoas"
+};
   return (
     <div className={`cartao`}>
       <div>
@@ -14,8 +22,8 @@ function ListaDisciplinas({
           Aluno: {alunoRA} <br />
           Código Disciplina: {codigo} <br />
         </p>
-        <button>Editar</button>
-        <button>Excluir</button>
+        <button onClick={editar}>Editar</button>
+        <button onClick={excluir}>Excluir</button>
       </div>
     </div>
   );

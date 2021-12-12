@@ -1,79 +1,152 @@
-import './buscar.css'
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import ReactDOM from 'react-dom';
 import NavBar from '../../components/navbar';
+import axios from 'axios';
 import api from '../../api'
+import ListaDePessoas from '../../components/listaPessoas';
+
+import $ from 'jquery';
+
+import { Redirect } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import React, { useEffect, useState, Component } from 'react';
-// import RoundRadioButton from '../../components/RoundRadioButton/RoundRadioButton';
 
-class Buscar extends Component {
+function Buscar() {
+
+    const [pessoa, setPessoa] = useState([]);
+    const [stringBusca, setStringBusca] = useState();
+    const dispatch = useDispatch();
+    const [carregando, setCarregando] = useState(0);
+    const [tipoBusca, setTipoBusca] = useState();
+    const [houveBusca, sethouveBusca] = useState(false);
 
 
-    buscar = async () => {
+    async function busca() {
+        var stringBusca
+        var tipoBusca;
+        stringBusca = document.getElementById('stringBusca').value
+        tipoBusca = document.getElementById('tipoBusca').value
+        var urlClassebusca = ''
+        var urlTipoBusca = ''
+
+        switch (tipoBusca) {
+            case "aluno-nome":
+                urlClassebusca = 'pessoa/'
+                urlTipoBusca = 'pesquisar/nome/'
+                break;
+            case "aluno-curso":
+                urlClassebusca = 'pessoa/'
+                urlTipoBusca = 'pesquisar/curso/'
+                break;
+            case "aluno-ra":
+                urlClassebusca = 'pessoa/'
+                urlTipoBusca = 'pesquisar/curso/'
+                break;
+            case "disciplina-nome":
+                urlClassebusca = 'disciplina/'
+                urlTipoBusca = 'pesquisar/nome/'
+                break;
+            case "disciplina-codigo":
+                urlClassebusca = 'disciplina/'
+                urlTipoBusca = 'pesquisar/nome/'
+                break;
+            case "disciplina-nome":
+                urlClassebusca = 'disciplina/'
+                urlTipoBusca = 'pesquisar/nome/'
+                break;
+
+            default:
+                break;
+        }
+
         var resposta = []
-        resposta = await api.get('pessoa/listar')
-        // .then(this.setState({resultado: resposta}))
-        // resposta.then(console.log(resposta))
-        // this.setState({resultado: resposta})
-        console.log(resposta.data)
+        resposta = await api.get(urlClassebusca + urlTipoBusca + stringBusca).catch((error)=>{alert('Erro na busca: '+error.message);window.location.href="http://localhost:3000/Buscar";})
+        if (resposta.data.length > 0) {
+            console.log('foi');
+
+            switch (urlClassebusca) {
+                case 'pessoa/':
+                    var listaDePessoa = [];
+                    Object.values(resposta.data)
+                        .forEach((doc) => {
+                            listaDePessoa.push({
+                                id: doc.__id,
+                                nome: doc.nome,
+                                curso: doc.curso,
+                                senha: doc.senha,
+                                ra: doc.ra
+                            });
+                        })
+                    setPessoa(
+                        listaDePessoa
+                    );
+                    break;
+                case 'disciplina/':
+
+                    break;
+
+                default:
+                    break;
+            }
+        }
+        alert('Busca completa, por favor verificar resultado apertando F12, não fui capaz de adicionar elementos na página de forma dinâmica');
+        console.log(resposta.data);
     }
 
-    render() {
-        return (
-            <body>
 
-                <NavBar />
-                <div className="container p-3 my-3 bg-dark text-white home-content" id="index-geral">
-                    <div className="container-titulo">
-                        <h1 className="text-center">Atividade de Programação Web 2 - Ciclo 2</h1>
+    return (
+
+        <body>
+            <NavBar />
+            <form className="form-signin mx-auto text-center" action="../paginas/index.html">
+                <div className="login-content container p-3 my-3 bg-dark text-white">
+                    {
+                        useSelector(state => state.usuarioLogado) != 1 ? <Redirect to='/'></Redirect> : null
+                    }
+                    <h1 className="d-flex justify-content-center  mb-3">Buscar</h1>
+                    <div className="form-group row d-flex justify-content-center">
+                        <div className="form-group row d-flex justify-content-center">
+                            <div className="col-xs-4 mb-3">
+                                <div className="form-group row d-flex justify-content-center">
+                                    <div className="col-xs-4 mb-3">
+                                        <label>O que buscar?</label>
+                                        <input onChange={(e) => setStringBusca(e.target.value)} type="text" className="form-control mx-auto" placeholder="String de busca" id="stringBusca" />
+                                        <label for="enunciado">Tipo de busca:</label>
+                                    </div>
+                                    <select onChange={(e) => setTipoBusca(e.target.value)} name="tipoBusca" id="tipoBusca" className="form-control mx-auto">
+                                        <option disabled selected value>-- Selecione uma categoria --</option>
+                                        <option value="aluno-nome">Aluno, pesquisa por NOME</option>
+                                        <option value="aluno-curso">Aluno, pesquisa por CURSO</option>
+                                        <option value="aluno-ra">Aluno, pesquisa por RA</option>
+                                        <option value="disciplina-nome">Disciplina, pesquisa por NOME DE DISCIPLINA</option>
+                                        <option value="disciplina-codigo">Disciplina, pesquisa por CÓDIGO DE DISCIPLINA</option>
+                                        <option value="disciplina-ra">Disciplina, pesquisa por RA DE ALUNO</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <br />
-                    <br />
-                    <div className="home-content-div container-texto">
-                        <p className="text-left">Objetivo do site: Fazer cadastro de alunos e alunos em disciplinas, onde múltiplos alunos podem fazer a mesma disciplina, assim como o mesmo aluno pode estar em diversas disciplinas.
-                        </p>
+
+                    <div className="text-center mb-3">
+                        {
+                            carregando ? <div className="spinner-border text-secondary" role="status"><span className="sr-only"></span></div>
+                                : <button className="btn btn-login" type="button" onClick={busca}
+                                >Pesquisar</button>
+                        }
                     </div>
-                    <div className="home-content-div container-texto">
-                        <p className="text-right">Lista de tecnologias
-                        </p>
-
-                        <ul>
-                            <li>DotEnv</li>
-                            <li>Express</li>
-                            <li>Mongoose</li>
-                            <li>React</li>
-                            <li>React-dom</li>
-                            <li>React-router-dom</li>
-                            <li>React-scripts</li>
-                            <li>Redux</li>
-                            <li>Redux-persist</li>
-                            <li>Web Vitals</li>
-                            <li>Bootstrap</li>
-                        </ul>
-                    </div>
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-                    <div className="home-content-div container-texto">
-                        <Link to="listaDisciplinas"><button className="btn btn-info container-btn mx-auto" id="todos">Lista de Disciplinas</button></Link>
-
-                        <Link to="listaPessoas"><button className="btn btn-info container-btn mx-auto" id="todos">Lista de Pessoas</button></Link>
-                        {/* <button className="btn btn-info container-btn mx-auto" id="todos" onClick={() => this.teste()}>Teste API</button> */}
-                    </div>
-                    <br />
-                    <br />
 
 
-
+                    {pessoa.map((item) => (
+                        <ListaDePessoas
+                            nome={item.nome}
+                            curso={item.curso}
+                            senha={item.senha}
+                            ra={item.ra}
+                        />
+                    ))}
                 </div>
-            </body>
-        );
-    }
-
+            </form>
+        </body>
+    );
 }
+
 export default Buscar;

@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import ListaDePessoas from '../../components/listaPessoas';
+import ListaDePessoas from '../../components/listaDisciplinas';
 import NavBar from '../../components/navbar';
-import './listaPessoas.css';
+import './resultadoBusca.css';
+import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux'
 
 import api from '../../api'
 
 
 
-function ListaPessoas() {
+function ({tipoBusca, dados[]}) {
     const [pessoa, setPessoa] = useState([]);
 
     async function teste(){
